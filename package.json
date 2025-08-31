@@ -26,7 +26,7 @@
     "Sass Buttons",
     "mobile-ui"
   ],
-  "author": "Your Name",
+  "author": "Sandipan Bera <sandipan006@example.com>",
   "license": "MIT",
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -43,12 +43,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/react-native-animated-button.git"
+    "url": "https://github.com/Sandipan006/react-native-animated-button.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/react-native-animated-button/issues"
+    "url": "https://github.com/Sandipan006/react-native-animated-button/issues"
   },
-  "homepage": "https://github.com/yourusername/react-native-animated-button#readme",
+  "homepage": "https://github.com/Sandipan006/react-native-animated-button#readme",
   "files": [
     "lib",
     "src",
