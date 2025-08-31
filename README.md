@@ -8,10 +8,10 @@ A beautiful React Native animated button component with Duolingo-style 3D press 
 <div align="center">
   
 ### 🎬 **Live Demo Video**
-![Demo Video](./docs/assets/videos/demo-video.gif)
+![Demo Video](./assets/videos/demo-video.gif)
 
 ### 📱 **Screenshots**
-<img src="./assets/images/demo-screenshot.png.jpeg" width="300" alt="AnimatedButton Demo" />
+<img src="./assets/images/demo-screenshot.jpeg" width="300" alt="AnimatedButton Demo" />
 
 </div>
 
