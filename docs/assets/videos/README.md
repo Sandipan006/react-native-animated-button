@@ -10,16 +10,7 @@ Add your demo videos and GIFs here:
    - Content: Button press animations, icon changes
    - File Size: Under 5MB
 
-2. **`button-animation.gif`** - Close-up 3D effect
-   - Duration: 2-3 seconds
-   - Size: 200x100px
-   - Content: Single button press animation
-   - Loop: Seamless loop
 
-3. **`haptic-demo.gif`** - Visual haptic feedback
-   - Duration: 3-4 seconds  
-   - Content: Button press with visual feedback indicators
-   - Note: Since haptic can't be recorded, show visual cues
 
 ## 🎬 **How to Create Demo Content**
 
