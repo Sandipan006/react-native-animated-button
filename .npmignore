@@ -1,0 +1,35 @@
+# Source TypeScript files (compiled versions will be in lib/)
+src/
+tsconfig.json
+
+# Development files
+.git/
+.github/
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test files
+__tests__/
+*.test.*
+*.spec.*
+
+# Build artifacts that shouldn't be published
+coverage/
+.nyc_output/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

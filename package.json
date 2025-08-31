@@ -1,0 +1,67 @@
+{
+  "name": "react-native-animated-button",
+  "version": "1.0.0",
+  "description": "A beautiful React Native animated button component with Duolingo-style 3D press animation and haptic feedback",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "animated-button",
+    "3d-button",
+    "duolingo-style",
+    "haptic-feedback",
+    "ui-component",
+    "button",
+    "animation",
+    "press-effect",
+    "typescript",
+    "Buttons",
+    "CSS Buttons",
+    "Sass Buttons",
+    "mobile-ui"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-native": ">=0.60.0",
+    "react-native-svg": ">=12.0.0",
+    "expo-haptics": ">=12.0.0"
+  },
+  "devDependencies": {
+    "react": "^18.0.0",
+    "react-native": "^0.72.0",
+    "typescript": "^5.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-native": "^0.72.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/react-native-animated-button.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/react-native-animated-button/issues"
+  },
+  "homepage": "https://github.com/yourusername/react-native-animated-button#readme",
+  "files": [
+    "lib",
+    "src",
+    "test-app",
+    "docs",
+    "README.md",
+    "package.json",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
