@@ -11,7 +11,7 @@ A beautiful React Native animated button component with Duolingo-style 3D press 
 ![Demo Video](./docs/assets/videos/demo-video.gif)
 
 ### 📱 **Screenshots**
-<img src="./docs/assets/images/demo-screenshot.png" width="300" alt="AnimatedButton Demo" />
+<img src="./assets/images/demo-screenshot.png.jpeg" width="300" alt="AnimatedButton Demo" />
 
 </div>
 
@@ -111,7 +111,7 @@ import AnimatedButton from 'react-native-animated-button';
 ## Examples
 
 <div align="center">
-<img src="./docs/assets/images/button-types.png" width="400" alt="Button Types" />
+<img src="./assets/images/button-types.png" width="400" alt="Button Types" />
 </div>
 
 ### Different Button Types
@@ -135,7 +135,7 @@ import AnimatedButton from 'react-native-animated-button';
 ### With Built-in Icons
 
 <div align="center">
-<img src="./docs/assets/images/social-icons.png" width="400" alt="Social Media Icons" />
+<img src="./assets/images/social-icons.png" width="400" alt="Social Media Icons" />
 </div>
 
 ```tsx
