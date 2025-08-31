@@ -111,7 +111,7 @@ import AnimatedButton from 'react-native-animated-button';
 ## Examples
 
 <div align="center">
-<img src="./assets/images/button-types.png" width="400" alt="Button Types" />
+<img src="./assets/images/button-types.jpeg" width="400" alt="Button Types" />
 </div>
 
 ### Different Button Types
@@ -135,7 +135,7 @@ import AnimatedButton from 'react-native-animated-button';
 ### With Built-in Icons
 
 <div align="center">
-<img src="./assets/images/social-icons.png" width="400" alt="Social Media Icons" />
+<img src="./assets/images/social-icons.jpeg" width="400" alt="Social Media Icons" />
 </div>
 
 ```tsx
@@ -229,6 +229,10 @@ import MyCustomIcon from './icons/MyCustomIcon';
 ```
 
 ### Loading States
+
+<div align="center">
+<img src="./assets/images/loading-states.jpeg" width="400" alt="Social Media Icons" />
+</div>
 
 ```tsx
 <AnimatedButton
