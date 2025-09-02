@@ -1,6 +1,6 @@
 {
   "name": "react-native-3d-animated-buttons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A beautiful React Native animated button component with 3D press animation and haptic feedback",
   "main": "lib/index.cjs",
   "module": "lib/index.esm.js",
@@ -35,6 +35,10 @@
     "react-native": ">=0.72",
     "react-native-svg": ">=13",
     "expo-haptics": ">=12"
+  },
+  "dependencies": {
+    "react-native-svg": "^13.0.0",
+    "expo-haptics": "^12.0.0"
   },
   "devDependencies": {
     "react": "^18.0.0",
