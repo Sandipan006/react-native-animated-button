@@ -1,11 +1,11 @@
 {
   "name": "react-native-3d-animated-buttons",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A beautiful React Native animated button component with 3D press animation and haptic feedback",
-  "main": "lib/index.cjs",
-  "module": "lib/index.esm.js",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
   "types": "lib/index.d.ts",
-  "react-native": "lib/index.esm.js",
+  "react-native": "lib/index.js",
   "source": "src/index.ts",
   "sideEffects": false,
   "scripts": {
