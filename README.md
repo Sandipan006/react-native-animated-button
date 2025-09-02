@@ -39,7 +39,7 @@ A beautiful React Native animated button component with Duolingo-style 3D press 
 Install the package along with its required dependencies:
 
 ```bash
-npm install react-native-3D-animated-buttons react-native-svg expo-haptics
+npm install react-native-3d-animated-buttons react-native-svg expo-haptics
 ```
 
 That's it! Everything you need in one command to create Duolingo-style interactive buttons.
@@ -47,7 +47,7 @@ That's it! Everything you need in one command to create Duolingo-style interacti
 ## 🚀 Quick Start
 
 ```tsx
-import { AnimatedButton } from 'react-native-3D-animated-buttons';
+import { AnimatedButton } from 'react-native-3d-animated-buttons';
 
 <AnimatedButton
   title="Continue"
@@ -66,7 +66,7 @@ import { AnimatedButton } from 'react-native-3D-animated-buttons';
 ```tsx
 import React from 'react';
 import { View } from 'react-native';
-import { AnimatedButton } from 'react-native-3D-animated-buttons';
+import { AnimatedButton } from 'react-native-3d-animated-buttons';
 
 const App = () => {
   return (
@@ -85,7 +85,7 @@ export default App;
 ### Advanced Usage
 
 ```tsx
-import { AnimatedButton } from 'react-native-3D-animated-buttons';
+import { AnimatedButton } from 'react-native-3d-animated-buttons';
 
 <AnimatedButton
   title="Sign in with Apple"
@@ -328,7 +328,7 @@ import MyCustomIcon from './icons/MyCustomIcon';
 
 ```tsx
 // Import icons from the comprehensive library
-import { AnimatedButton, icons } from 'react-native-3D-animated-buttons';
+import { AnimatedButton, icons } from 'react-native-3d-animated-buttons';
 
 // Social media icons
 <AnimatedButton
@@ -462,7 +462,7 @@ The component uses Expo Haptics for tactile feedback. You can customize the inte
 This package is written in TypeScript and includes full type definitions. You'll get excellent IntelliSense support and type safety:
 
 ```tsx
-import { AnimatedButton, AnimatedButtonProps, IconType, HapticStyle, ButtonType, IconPosition } from 'react-native-3D-animated-buttons';
+import { AnimatedButton, AnimatedButtonProps, IconType, HapticStyle, ButtonType, IconPosition } from 'react-native-3d-animated-buttons';
 
 // All props are fully typed
 const MyButton: React.FC = () => {

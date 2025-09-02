@@ -1,5 +1,5 @@
 {
-  "name": "react-native-3D-animated-buttons",
+  "name": "react-native-3d-animated-buttons",
   "version": "1.0.0",
   "description": "A beautiful React Native animated button component with 3D press animation and haptic feedback",
   "main": "lib/index.cjs",
@@ -45,12 +45,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sandipan006/react-native-3D-animated-buttons.git"
+    "url": "git+https://github.com/Sandipan006/react-native-3d-animated-buttons.git"
   },
   "bugs": {
-    "url": "https://github.com/Sandipan006/react-native-3D-animated-buttons/issues"
+    "url": "https://github.com/Sandipan006/react-native-3d-animated-buttons/issues"
   },
-  "homepage": "https://github.com/Sandipan006/react-native-3D-animated-buttons#readme",
+  "homepage": "https://github.com/Sandipan006/react-native-3d-animated-buttons#readme",
   "files": [
     "lib",
     "README.md",

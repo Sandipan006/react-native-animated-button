@@ -36,7 +36,7 @@ A professional React Native button component with Duolingo-style 3D animations, 
 ## 📁 **Project Structure**
 
 ```
-react-native-3D-animated-buttons/
+react-native-3d-animated-buttons/
 ├── 📦 Package Core
 │   ├── src/AnimatedButton.tsx      # Main component (TypeScript)
 │   ├── src/index.ts               # Package exports

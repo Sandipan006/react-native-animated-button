@@ -87,7 +87,7 @@ export { default as HeartIcon } from './common/HeartIcon';
 
 ### **Step 4: Use in AnimatedButton**
 ```tsx
-import { HeartIcon } from 'react-native-3D-animated-buttons/icons';
+import { HeartIcon } from 'react-native-3d-animated-buttons/icons';
 
 <AnimatedButton
   title="Like Post"
