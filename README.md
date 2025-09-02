@@ -20,14 +20,17 @@ A beautiful React Native animated button component with Duolingo-style 3D press 
 ## Features
 
 - ✨ **Duolingo-style 3D press animation** - Smooth button press effect with shadow
-- 📳 **Haptic feedback** - Tactile response on button press
+- 🎯 **Spring animations** - Natural, responsive press animations with configurable physics
+- 📳 **Haptic feedback** - Tactile response on button press (Light/Medium/Heavy)
 - 🎨 **Customizable design** - Colors, fonts, and styles
 - 🔄 **Loading states** - Built-in loading indicator with optional text
 - 🎯 **Icon support** - Built-in icons + comprehensive SVG icon library
 - ↔️ **Icon positioning** - Left or right icon placement for better UX
-- 📱 **Responsive design** - Adapts to different screen sizes
+- 🌍 **RTL language support** - Automatic right-to-left language detection
+- 📱 **Responsive design** - Adapts to different screen sizes and orientations
 - 🎪 **Button types** - Normal and capsule shapes
-- ♿ **Accessibility** - Proper disabled states and opacity
+- ♿ **Enhanced accessibility** - Labels, hints, hitSlop, and proper states
+- 🔒 **Press lock mechanism** - Prevents accidental double-presses
 - 📘 **TypeScript** - Full type definitions included
 - 🎨 **50+ SVG Icons** - Social, payment, arrows, actions, common UI icons
 
@@ -63,7 +66,7 @@ import { AnimatedButton } from 'react-native-animated-button';
 ```tsx
 import React from 'react';
 import { View } from 'react-native';
-import AnimatedButton from 'react-native-animated-button';
+import { AnimatedButton } from 'react-native-animated-button';
 
 const App = () => {
   return (
@@ -82,7 +85,7 @@ export default App;
 ### Advanced Usage
 
 ```tsx
-import AnimatedButton from 'react-native-animated-button';
+import { AnimatedButton } from 'react-native-animated-button';
 
 <AnimatedButton
   title="Sign in with Apple"
@@ -96,6 +99,13 @@ import AnimatedButton from 'react-native-animated-button';
   loading={isLoading}
   loadingText="Signing in..."
   disabled={false}
+  fullWidth={true}
+  minHeight={60}
+  testID="apple-signin-button"
+  accessibilityLabel="Sign in with Apple account"
+  accessibilityHint="Double tap to sign in with your Apple ID"
+  onLongPress={() => showHelp()}
+  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
   style={{ marginBottom: 20 }}
   textStyle={{ fontSize: 16, fontWeight: 'bold' }}
 />
@@ -107,21 +117,29 @@ import AnimatedButton from 'react-native-animated-button';
 |------|------|---------|-------------|
 | `title` | string | **Required** | Button text |
 | `onPress` | function | **Required** | Press handler function |
-| `backgroundColor` | string | `'#20B2AA'` | Main button background color |
-| `shadowColor` | string | `'#1A9B94'` | Shadow layer background color |
-| `textColor` | string | `'#FFFFFF'` | Button text color |
-| `style` | object | `{}` | Additional styles for button container |
-| `textStyle` | object | `{}` | Additional styles for button text |
+| `backgroundColor` | ColorValue | `'#20B2AA'` | Main button background color |
+| `shadowColor` | ColorValue | `'#1A9B94'` | Shadow layer background color |
+| `textColor` | ColorValue | `'#FFFFFF'` | Button text color |
+| `style` | StyleProp<ViewStyle> | `{}` | Additional styles for button container |
+| `textStyle` | StyleProp<TextStyle> | `{}` | Additional styles for button text |
 | `disabled` | boolean | `false` | Whether button is disabled |
-| `hapticStyle` | string | `'Heavy'` | Haptic feedback style: `'Light'`, `'Medium'`, `'Heavy'` |
-| `icon` | string | `null` | Built-in icon type: `'apple'`, `'google'`, `'phone'`, `'facebook'`, or `null` |
-| `customIcon` | React.ComponentType | `null` | Custom SVG icon component (highest priority) |
+| `hapticStyle` | HapticStyle | `'Heavy'` | Haptic feedback style: `'Light'`, `'Medium'`, `'Heavy'` |
+| `icon` | IconType | `null` | Built-in icon type: `'apple'`, `'google'`, `'phone'`, `'facebook'`, or `null` |
+| `customIcon` | IconComponent | `null` | Custom SVG icon component (highest priority) |
 | `customIconSvg` | string | `null` | Custom SVG icon as string markup |
 | `iconSize` | number | `24` | Icon size (width and height in pixels) |
-| `iconPosition` | string | `'left'` | Icon position: `'left'` or `'right'` |
+| `iconPosition` | IconPosition | `'left'` | Icon position: `'left'` or `'right'` (auto-swaps for RTL) |
 | `loading` | boolean | `false` | Whether to show loading indicator |
 | `loadingText` | string | `null` | Text to show when loading (optional) |
-| `type` | string | `'normal'` | Button type: `'normal'` or `'capsule'` |
+| `type` | ButtonType | `'normal'` | Button type: `'normal'` or `'capsule'` |
+| `fullWidth` | boolean | `true` | Whether button should take full width |
+| `minHeight` | number | `52` | Minimum height of the button |
+| `testID` | string | `undefined` | Test identifier for testing frameworks |
+| `accessibilityLabel` | string | `title` | Accessibility label for screen readers |
+| `accessibilityHint` | string | `undefined` | Accessibility hint (auto-sets to 'In progress' when loading) |
+| `onLongPress` | function | `undefined` | Long press handler function |
+| `hitSlop` | Insets | `undefined` | Touch target expansion for better accessibility |
+| `disableAnimations` | boolean | `false` | Disable animations for accessibility (reduced motion) |
 
 ## Examples
 
@@ -246,7 +264,7 @@ import MyCustomIcon from './icons/MyCustomIcon';
 ### Loading States
 
 <div align="center">
-<img src="./assets/images/loading-states.jpeg" width="400" alt="Social Media Icons" />
+<img src="./assets/images/loading-states.jpeg" width="400" alt="Loading States" />
 </div>
 
 ```tsx
@@ -310,7 +328,7 @@ import MyCustomIcon from './icons/MyCustomIcon';
 
 ```tsx
 // Import icons from the comprehensive library
-import AnimatedButton, { icons } from 'react-native-animated-button';
+import { AnimatedButton, icons } from 'react-native-animated-button';
 
 // Social media icons
 <AnimatedButton
@@ -349,6 +367,80 @@ import AnimatedButton, { icons } from 'react-native-animated-button';
 />
 ```
 
+## Advanced Features
+
+### Spring Animations
+
+The component uses spring-based animations for a natural, responsive feel:
+
+```tsx
+// Custom spring configuration (built-in)
+<AnimatedButton
+  title="Spring Button"
+  onPress={() => {}}
+  // Uses: stiffness: 300, damping: 20, mass: 0.4
+/>
+```
+
+### RTL Language Support
+
+Automatically detects and adapts to right-to-left languages:
+
+```tsx
+// Icon automatically swaps to right side in RTL languages
+<AnimatedButton
+  title="Continue"
+  icon="arrow-right"
+  // iconPosition not specified - auto-detects RTL
+/>
+```
+
+### Accessibility Features
+
+Enhanced accessibility with proper labels, hints, and touch targets:
+
+```tsx
+<AnimatedButton
+  title="Accessible Button"
+  onPress={() => {}}
+  accessibilityLabel="Primary action button"
+  accessibilityHint="Double tap to perform the main action"
+  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+  testID="primary-button"
+/>
+
+// Reduced motion support for accessibility
+<AnimatedButton
+  title="Static Button"
+  onPress={() => {}}
+  disableAnimations={true} // No animations for users who prefer reduced motion
+/>
+```
+
+### Press Lock Mechanism
+
+Prevents accidental double-presses with configurable timing:
+
+```tsx
+<AnimatedButton
+  title="Protected Button"
+  onPress={() => handleExpensiveOperation()}
+  // Automatically prevents rapid double-presses
+/>
+```
+
+### Reduced Motion Support
+
+Respects user accessibility preferences by allowing animation disabling:
+
+```tsx
+<AnimatedButton
+  title="Accessible Button"
+  onPress={() => {}}
+  disableAnimations={true} // Respects user's reduced motion preference
+/>
+```
+
 ## Haptic Feedback
 
 The component uses Expo Haptics for tactile feedback. You can customize the intensity:
@@ -370,7 +462,7 @@ The component uses Expo Haptics for tactile feedback. You can customize the inte
 This package is written in TypeScript and includes full type definitions. You'll get excellent IntelliSense support and type safety:
 
 ```tsx
-import AnimatedButton, { AnimatedButtonProps, IconType, HapticStyle } from 'react-native-animated-button';
+import { AnimatedButton, AnimatedButtonProps, IconType, HapticStyle, ButtonType, IconPosition } from 'react-native-animated-button';
 
 // All props are fully typed
 const MyButton: React.FC = () => {
@@ -385,6 +477,7 @@ const MyButton: React.FC = () => {
       hapticStyle="Medium" // Autocomplete available: 'Light' | 'Medium' | 'Heavy'
       icon="apple" // Autocomplete available: 'apple' | 'google' | 'phone' | 'facebook'
       type="capsule" // Autocomplete available: 'normal' | 'capsule'
+      iconPosition="right" // Autocomplete available: 'left' | 'right'
     />
   );
 };
@@ -411,7 +504,15 @@ Perfect for understanding how to integrate the component in your project!
 
 ## Responsive Design
 
-The component automatically adapts to different screen sizes using a responsive scaling system based on device dimensions.
+The component automatically adapts to different screen sizes and orientations using a responsive scaling system based on device dimensions. It responds to orientation changes in real-time for optimal user experience.
+
+## Performance Features
+
+- **React.memo** - Prevents unnecessary re-renders
+- **useCallback** - Stable event handler references
+- **useMemo** - Optimized computed values
+- **useWindowDimensions** - Efficient orientation change handling
+- **Press lock** - Prevents rapid double-presses
 
 ## License
 

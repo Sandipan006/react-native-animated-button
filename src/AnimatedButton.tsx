@@ -56,6 +56,7 @@ export interface AnimatedButtonProps {
   accessibilityHint?: string;
   onLongPress?: () => void;
   hitSlop?: Insets;
+  disableAnimations?: boolean; // New prop to disable animations for accessibility
 }
 
 const isIOS = Platform.OS === 'ios';
@@ -121,6 +122,7 @@ const AnimatedButton = forwardRef<View, AnimatedButtonProps>((props, ref) => {
     accessibilityHint,
     onLongPress,
     hitSlop,
+    disableAnimations,
   } = props;
 
   const normalize = useNormalize();
@@ -168,6 +170,9 @@ const AnimatedButton = forwardRef<View, AnimatedButtonProps>((props, ref) => {
     if (disabled || loading) return;
     doHaptic();
     
+    // Skip animation if disabled for accessibility
+    if (disableAnimations) return;
+    
     // Use spring for more natural "Duolingo" feel
     Animated.spring(pressY, {
       toValue: 6,
@@ -176,10 +181,13 @@ const AnimatedButton = forwardRef<View, AnimatedButtonProps>((props, ref) => {
       mass: 0.4,
       useNativeDriver: true,
     }).start();
-  }, [disabled, loading, doHaptic, pressY]);
+  }, [disabled, loading, doHaptic, pressY, disableAnimations]);
 
   const handlePressOut = useCallback(() => {
     if (disabled || loading) return;
+    
+    // Skip animation if disabled for accessibility
+    if (disableAnimations) return;
     
     Animated.spring(pressY, {
       toValue: 0,
@@ -188,7 +196,7 @@ const AnimatedButton = forwardRef<View, AnimatedButtonProps>((props, ref) => {
       mass: 0.4,
       useNativeDriver: true,
     }).start();
-  }, [disabled, loading, pressY]);
+  }, [disabled, loading, pressY, disableAnimations]);
 
   const handlePress = useCallback(() => {
     if (disabled || loading || !onPress) return;
