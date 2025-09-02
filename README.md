@@ -1,6 +1,6 @@
-# React Native Animated Button
+# React Native 3D Animated Buttons
 
-A beautiful React Native animated button component with Duolingo-style 3D press animation and haptic feedback. Written in TypeScript with full type definitions.
+A beautiful React Native animated button component with Duolingo-style 3D press animation and haptic feedback. Perfect for creating engaging, interactive buttons that feel great to press. Written in TypeScript with full type definitions.
 
 ## 📱 **Demo**
 
@@ -19,7 +19,7 @@ A beautiful React Native animated button component with Duolingo-style 3D press 
 
 ## Features
 
-- ✨ **Duolingo-style 3D press animation** - Smooth button press effect with shadow
+- ✨ **Duolingo-style 3D press animation** - Smooth button press effect with shadow that feels like the popular language learning app
 - 🎯 **Spring animations** - Natural, responsive press animations with configurable physics
 - 📳 **Haptic feedback** - Tactile response on button press (Light/Medium/Heavy)
 - 🎨 **Customizable design** - Colors, fonts, and styles
@@ -39,15 +39,15 @@ A beautiful React Native animated button component with Duolingo-style 3D press 
 Install the package along with its required dependencies:
 
 ```bash
-npm install react-native-animated-button react-native-svg expo-haptics
+npm install react-native-3D-animated-buttons react-native-svg expo-haptics
 ```
 
-That's it! Everything you need in one command.
+That's it! Everything you need in one command to create Duolingo-style interactive buttons.
 
 ## 🚀 Quick Start
 
 ```tsx
-import { AnimatedButton } from 'react-native-animated-button';
+import { AnimatedButton } from 'react-native-3D-animated-buttons';
 
 <AnimatedButton
   title="Continue"
@@ -66,7 +66,7 @@ import { AnimatedButton } from 'react-native-animated-button';
 ```tsx
 import React from 'react';
 import { View } from 'react-native';
-import { AnimatedButton } from 'react-native-animated-button';
+import { AnimatedButton } from 'react-native-3D-animated-buttons';
 
 const App = () => {
   return (
@@ -85,7 +85,7 @@ export default App;
 ### Advanced Usage
 
 ```tsx
-import { AnimatedButton } from 'react-native-animated-button';
+import { AnimatedButton } from 'react-native-3D-animated-buttons';
 
 <AnimatedButton
   title="Sign in with Apple"
@@ -328,7 +328,7 @@ import MyCustomIcon from './icons/MyCustomIcon';
 
 ```tsx
 // Import icons from the comprehensive library
-import { AnimatedButton, icons } from 'react-native-animated-button';
+import { AnimatedButton, icons } from 'react-native-3D-animated-buttons';
 
 // Social media icons
 <AnimatedButton
@@ -371,7 +371,7 @@ import { AnimatedButton, icons } from 'react-native-animated-button';
 
 ### Spring Animations
 
-The component uses spring-based animations for a natural, responsive feel:
+The component uses spring-based animations for a natural, responsive feel that mimics the satisfying button press experience found in apps like Duolingo:
 
 ```tsx
 // Custom spring configuration (built-in)
@@ -462,7 +462,7 @@ The component uses Expo Haptics for tactile feedback. You can customize the inte
 This package is written in TypeScript and includes full type definitions. You'll get excellent IntelliSense support and type safety:
 
 ```tsx
-import { AnimatedButton, AnimatedButtonProps, IconType, HapticStyle, ButtonType, IconPosition } from 'react-native-animated-button';
+import { AnimatedButton, AnimatedButtonProps, IconType, HapticStyle, ButtonType, IconPosition } from 'react-native-3D-animated-buttons';
 
 // All props are fully typed
 const MyButton: React.FC = () => {
@@ -504,7 +504,7 @@ Perfect for understanding how to integrate the component in your project!
 
 ## Responsive Design
 
-The component automatically adapts to different screen sizes and orientations using a responsive scaling system based on device dimensions. It responds to orientation changes in real-time for optimal user experience.
+The component automatically adapts to different screen sizes and orientations using a responsive scaling system based on device dimensions. It responds to orientation changes in real-time for optimal user experience, ensuring your Duolingo-style buttons look great on any device.
 
 ## Performance Features
 
@@ -513,6 +513,7 @@ The component automatically adapts to different screen sizes and orientations us
 - **useMemo** - Optimized computed values
 - **useWindowDimensions** - Efficient orientation change handling
 - **Press lock** - Prevents rapid double-presses
+- **Duolingo-inspired UX** - Smooth, satisfying button interactions that users love
 
 ## License
 

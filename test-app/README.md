@@ -1,6 +1,6 @@
-# 🧪 AnimatedButton Test App
+# 🧪 3D AnimatedButton Test App
 
-A well-architected demo app showcasing the React Native Animated Button component.
+A well-architected demo app showcasing the React Native 3D Animated Button component.
 
 ## 📁 Project Structure
 
@@ -88,7 +88,7 @@ test-app/
 
 ## 🚀 Key Features Demonstrated
 
-- ✨ **3D Press Animation** - Duolingo-style button press
+- ✨ **3D Press Animation** - 3D-style button press with shadow
 - 📳 **Haptic Feedback** - Tactile response on supported devices
 - 🎨 **Custom Icons** - SVG icon integration with sizing
 - 📱 **Responsive Design** - Works on all screen sizes

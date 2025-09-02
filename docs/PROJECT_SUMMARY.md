@@ -1,4 +1,4 @@
-# 🎯 React Native Animated Button - Project Summary
+# 🎯 React Native 3D Animated Buttons - Project Summary
 
 ## 📦 **Package Overview**
 
@@ -36,7 +36,7 @@ A professional React Native button component with Duolingo-style 3D animations, 
 ## 📁 **Project Structure**
 
 ```
-react-native-animated-button/
+react-native-3D-animated-buttons/
 ├── 📦 Package Core
 │   ├── src/AnimatedButton.tsx      # Main component (TypeScript)
 │   ├── src/index.ts               # Package exports

@@ -32,8 +32,8 @@ export default function App() {
       <ScrollView contentContainerStyle={globalStyles.scrollContent}>
         {/* Header */}
         <View style={globalStyles.header}>
-          <Text style={globalStyles.title}>🎨 AnimatedButton Demo</Text>
-          <Text style={globalStyles.subtitle}>Professional React Native button component</Text>
+          <Text style={globalStyles.title}>🎨 3D Animated Button Demo</Text>
+          <Text style={globalStyles.subtitle}>Professional React Native 3D button component</Text>
         </View>
 
         {/* Demo Sections */}
@@ -53,7 +53,7 @@ export default function App() {
         {/* Footer */}
         <View style={globalStyles.footer}>
           <Text style={globalStyles.footerText}>
-            ✨ React Native Animated Button{'\n'}
+            ✨ React Native 3D Animated Buttons{'\n'}
             Professional 3D button component with haptic feedback
           </Text>
         </View>

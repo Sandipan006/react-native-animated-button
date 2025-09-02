@@ -1,7 +1,7 @@
 {
-  "name": "react-native-animated-button",
+  "name": "react-native-3D-animated-buttons",
   "version": "1.0.0",
-  "description": "A beautiful React Native animated button component with Duolingo-style 3D press animation and haptic feedback",
+  "description": "A beautiful React Native animated button component with 3D press animation and haptic feedback",
   "main": "lib/index.cjs",
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
@@ -25,6 +25,7 @@
     "Buttons",
     "CSS Buttons",
     "Sass Buttons",
+    "login button",
     "mobile-ui"
   ],
   "author": "Sandipan Bera",
@@ -44,12 +45,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sandipan006/react-native-animated-button.git"
+    "url": "git+https://github.com/Sandipan006/react-native-3D-animated-buttons.git"
   },
   "bugs": {
-    "url": "https://github.com/Sandipan006/react-native-animated-button/issues"
+    "url": "https://github.com/Sandipan006/react-native-3D-animated-buttons/issues"
   },
-  "homepage": "https://github.com/Sandipan006/react-native-animated-button#readme",
+  "homepage": "https://github.com/Sandipan006/react-native-3D-animated-buttons#readme",
   "files": [
     "lib",
     "README.md",
