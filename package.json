@@ -2,22 +2,23 @@
   "name": "react-native-animated-button",
   "version": "1.0.0",
   "description": "A beautiful React Native animated button component with Duolingo-style 3D press animation and haptic feedback",
-  "main": "lib/index.js",
+  "main": "lib/index.cjs",
+  "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
+  "react-native": "lib/index.esm.js",
   "source": "src/index.ts",
+  "sideEffects": false,
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
+    "button",
     "react-native",
     "animated-button",
     "3d-button",
     "duolingo-style",
-    "haptic-feedback",
-    "ui-component",
-    "button",
     "animation",
     "press-effect",
     "typescript",
@@ -29,10 +30,10 @@
   "author": "Sandipan Bera",
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-native": ">=0.60.0",
-    "react-native-svg": ">=12.0.0",
-    "expo-haptics": ">=12.0.0"
+    "react": ">=18",
+    "react-native": ">=0.72",
+    "react-native-svg": ">=13",
+    "expo-haptics": ">=12"
   },
   "devDependencies": {
     "react": "^18.0.0",
@@ -51,11 +52,7 @@
   "homepage": "https://github.com/Sandipan006/react-native-animated-button#readme",
   "files": [
     "lib",
-    "src",
-    "test-app",
-    "docs",
     "README.md",
-    "package.json",
     "LICENSE"
   ],
   "engines": {

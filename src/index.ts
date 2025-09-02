@@ -1,9 +1,9 @@
-export { default } from './AnimatedButton';
+export { default as AnimatedButton } from './AnimatedButton';
 export type { 
   AnimatedButtonProps, 
   IconType, 
   HapticStyle, 
-  ButtonType,
+  ButtonType, 
   IconPosition 
 } from './AnimatedButton';
 

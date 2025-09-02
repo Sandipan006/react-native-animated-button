@@ -41,6 +41,21 @@ npm install react-native-animated-button react-native-svg expo-haptics
 
 That's it! Everything you need in one command.
 
+## 🚀 Quick Start
+
+```tsx
+import { AnimatedButton } from 'react-native-animated-button';
+
+<AnimatedButton
+  title="Continue"
+  onPress={() => {}}
+  icon="apple"
+  type="capsule"
+  backgroundColor="#20B2AA"
+  shadowColor="#1A9B94"
+/>
+```
+
 ## Usage
 
 ### Basic Usage

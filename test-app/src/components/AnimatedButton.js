@@ -1,269 +1,299 @@
-import React, { useRef } from 'react';
-import { 
-StyleSheet, 
-Text, 
-TouchableOpacity, 
-Dimensions, 
-Platform, 
-Animated, 
-View, 
-ActivityIndicator } from 'react-native';
+import React, { useCallback, useMemo, useRef, forwardRef } from 'react';
+import {
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  Platform,
+  Animated,
+  View,
+  ActivityIndicator,
+  Pressable,
+  I18nManager,
+  PixelRatio,
+} from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import * as Haptics from 'expo-haptics';
 
-/**
- * Get device dimensions for responsive sizing
- */
-const { width, height } = Dimensions.get('window');
-const scale = Math.min(width, height) / 375; // Using 375 as base width (iPhone X)
+import { appleV1, googleV1, facebookV1, phoneV1 } from '../constants/icons';
 
-/**
- * Helper function for responsive sizes
- * @param {number} size - Original size to normalize
- * @returns {number} - Normalized size based on device scale
- */
-const normalize = (size) => Math.round(scale * size);
+const isIOS = Platform.OS === 'ios';
 
-/**
- * Default color constants
- */
+/** Dynamic normalize that reacts to orientation/size changes */
+const useNormalize = () => {
+  const { width, height } = useWindowDimensions();
+  const scale = Math.min(width, height) / 375; // iPhone X logical width
+  
+  return useCallback((size) => {
+    // Round to nearest pixel to avoid blurriness
+    return Math.round(PixelRatio.roundToNearestPixel(scale * size));
+  }, [scale]);
+};
+
 const COLORS = {
-  PRIMARY_TEAL: '#20B2AA',
+  PRIMARY_TEAL: Platform.select({
+    ios: '#20B2AA', // Could use DynamicColorIOS({ light: '#20B2AA', dark: '#20B2AA' }) for true dynamic colors
+    default: '#20B2AA',
+  }),
   SHADOW_PRIMARY_TEAL: '#1A9B94',
   WHITE_PRIMARY: '#FFFFFF',
   TEXT_PRIMARY: '#1A1A1A',
 };
 
-/**
- * Default font constants
- */
 const FONTS = {
-  figtreeSemiBold: Platform.OS === 'ios' ? 'Figtree-SemiBold' : 'figtree_semibold',
+  figtreeSemiBold: isIOS ? 'Figtree-SemiBold' : 'figtree_semibold',
 };
 
+const iconMap = {
+  apple: appleV1,
+  google: googleV1,
+  facebook: facebookV1,
+  phone: phoneV1,
+};
 
+// Spacer component for icon gap fallback
+const Spacer = ({ width }) => <View style={{ width }} />;
 
-/**
- * AnimatedButton Component
- * Professional React Native button with Duolingo-style 3D animation and haptic feedback
- * 
- * @param {Object} props - Component props
- * @param {string} props.title - Button text
- * @param {function} props.onPress - Function to call when button is pressed
- * @param {string} props.backgroundColor - Main button background color
- * @param {string} props.shadowColor - Shadow layer background color
- * @param {string} props.textColor - Button text color
- * @param {Object} props.style - Additional styles for button container
- * @param {Object} props.textStyle - Additional styles for button text
- * @param {boolean} props.disabled - Whether button is disabled
- * @param {string} props.hapticStyle - Haptic feedback style ('Light', 'Medium', 'Heavy')
- * @param {string} props.customIconSvg - Custom SVG icon as string
- * @param {number} props.iconSize - Icon size in pixels
- * @param {string} props.iconPosition - Icon position ('left' or 'right')
- * @param {boolean} props.loading - Whether to show loading indicator
- * @param {string} props.loadingText - Text to show when loading
- * @param {string} props.type - Button type ('normal' or 'capsule')
- */
-const AnimatedButton = ({
-  title,
-  onPress,
-  backgroundColor = COLORS.PRIMARY_TEAL,
-  shadowColor = COLORS.SHADOW_PRIMARY_TEAL,
-  textColor = COLORS.WHITE_PRIMARY,
-  style = {},
-  textStyle = {},
-  disabled = false,
-  hapticStyle = 'Heavy',
-  customIconSvg = null,
-  iconSize = 24,
-  iconPosition = 'left',
-  loading = false,
-  loadingText = null,
-  type = 'normal',
-}) => {
-  const buttonTranslateY = useRef(new Animated.Value(0)).current;
+const AnimatedButton = forwardRef((props, ref) => {
+  const {
+    title,
+    onPress,
+    backgroundColor = COLORS.PRIMARY_TEAL,
+    shadowColor = COLORS.SHADOW_PRIMARY_TEAL,
+    textColor = COLORS.WHITE_PRIMARY,
+    style,
+    textStyle,
+    disabled = false,
+    hapticStyle = 'Heavy',
+    icon = null,
+    customIcon = null,
+    customIconSvg = null,
+    iconSize = 24,
+    iconPosition,
+    loading = false,
+    loadingText = null,
+    type = 'normal',
+    fullWidth = true,
+    minHeight,
+    testID,
+    accessibilityLabel,
+    accessibilityHint,
+    onLongPress,
+    hitSlop,
+  } = props;
 
-  /**
-   * Determine border radius based on button type
-   * @returns {number} Border radius value
-   */
-  const getBorderRadius = () => {
-    return type === 'capsule' ? normalize(50) : normalize(18);
-  };
+  const normalize = useNormalize();
+  const pressY = useRef(new Animated.Value(0)).current;
+  const pressLock = useRef(false); // guard to prevent rapid double presses
 
-  /**
-   * Determine shadow border radius (slightly larger for depth effect)
-   * @returns {number} Shadow border radius value
-   */
-  const getShadowBorderRadius = () => {
-    return type === 'capsule' ? normalize(50) : normalize(19);
-  };
+  const brMain = useMemo(() => (type === 'capsule' ? normalize(50) : normalize(18)), [type, normalize]);
+  const brShadow = useMemo(() => (type === 'capsule' ? normalize(50) : normalize(19)), [type, normalize]);
 
-  /**
-   * Renders the custom SVG icon if provided
-   * @returns {JSX.Element|null} SVG icon component or null
-   */
-  const renderIcon = () => {
+  const effectiveIconPosition = useMemo(() => {
+    if (iconPosition) return iconPosition;
+    // Auto-swap for RTL if not specified
+    return I18nManager.isRTL ? 'right' : 'left';
+  }, [iconPosition]);
+
+  const renderIcon = useCallback(() => {
+    if (customIcon) {
+      const CustomIcon = customIcon;
+      return <CustomIcon width={iconSize} height={iconSize} />;
+    }
     if (customIconSvg) {
       return <SvgXml xml={customIconSvg} width={iconSize} height={iconSize} />;
     }
-    
+    if (icon) {
+      const svg = iconMap[icon];
+      if (svg) return <SvgXml xml={svg} width={iconSize} height={iconSize} />;
+    }
     return null;
-  };
+  }, [customIcon, customIconSvg, icon, iconSize]);
 
-  /**
-   * Handles button press in animation
-   * Moves button down by 6px to create 3D press effect
-   * Triggers haptic feedback for tactile response
-   */
-  const handlePressIn = () => {
+  const doHaptic = useCallback(async () => {
+    try {
+      const map = {
+        Light: Haptics.ImpactFeedbackStyle.Light,
+        Medium: Haptics.ImpactFeedbackStyle.Medium,
+        Heavy: Haptics.ImpactFeedbackStyle.Heavy,
+      };
+      await Haptics.impactAsync(map[hapticStyle] ?? Haptics.ImpactFeedbackStyle.Light);
+    } catch {
+      // no-op if not supported
+    }
+  }, [hapticStyle]);
+
+  const handlePressIn = useCallback(() => {
     if (disabled || loading) return;
-
-    // Trigger haptic feedback
-    const hapticMap = {
-      Light: Haptics.ImpactFeedbackStyle.Light,
-      Medium: Haptics.ImpactFeedbackStyle.Medium,
-      Heavy: Haptics.ImpactFeedbackStyle.Heavy,
-    };
-    Haptics.impactAsync(hapticMap[hapticStyle] || Haptics.ImpactFeedbackStyle.Light);
-
-    Animated.timing(buttonTranslateY, {
+    doHaptic();
+    
+    // Use spring for more natural "Duolingo" feel
+    Animated.spring(pressY, {
       toValue: 6,
-      duration: 100,
+      stiffness: 300,
+      damping: 20,
+      mass: 0.4,
       useNativeDriver: true,
     }).start();
-  };
+  }, [disabled, loading, doHaptic, pressY]);
 
-  /**
-   * Handles button press out animation
-   * Returns button to original position
-   */
-  const handlePressOut = () => {
+  const handlePressOut = useCallback(() => {
     if (disabled || loading) return;
-
-    Animated.timing(buttonTranslateY, {
+    
+    Animated.spring(pressY, {
       toValue: 0,
-      duration: 100,
+      stiffness: 300,
+      damping: 20,
+      mass: 0.4,
       useNativeDriver: true,
     }).start();
-  };
+  }, [disabled, loading, pressY]);
 
-  /**
-   * Handles button press
-   * Calls onPress function if provided and not disabled
-   */
-  const handlePress = () => {
+  const handlePress = useCallback(() => {
     if (disabled || loading || !onPress) return;
-    onPress();
-  };
+    if (pressLock.current) return;
+    pressLock.current = true;
+    try {
+      onPress();
+    } finally {
+      // Release lock shortly after to avoid accidental double-press
+      setTimeout(() => {
+        pressLock.current = false;
+      }, 250);
+    }
+  }, [disabled, loading, onPress]);
+
+  const a11yState = useMemo(
+    () => ({ disabled: disabled || loading, busy: loading }),
+    [disabled, loading]
+  );
+
+  // Ensure textColor is a string for ActivityIndicator
+  const spinnerColor = (typeof textColor === 'string' ? textColor : '#FFFFFF');
 
   return (
-    <View style={[styles.buttonContainer, style, { opacity: (disabled || loading) ? 0.6 : 1 }]}>
-      {/* Shadow layer for 3D effect */}
-      <View 
+    <View
+      ref={ref}
+      testID={testID}
+      style={[
+        styles.container,
+        fullWidth && { width: '100%' },
+        { marginBottom: normalize(12) },
+        style,
+        (disabled || loading) && { opacity: 0.6 },
+      ]}
+    >
+      {/* Shadow layer */}
+      <View
+        pointerEvents="none"
         style={[
-          styles.buttonDarkLayer, 
-          { 
+          styles.shadowLayer,
+          {
+            top: normalize(6),
+            borderRadius: brShadow,
             backgroundColor: shadowColor,
-            borderRadius: getShadowBorderRadius()
-          }
-        ]} 
+          },
+        ]}
       />
 
-      {/* Main interactive button layer */}
-      <TouchableOpacity
-        style={styles.buttonTouchable}
+      {/* Main pressable layer */}
+      <Pressable
         onPress={handlePress}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
-        activeOpacity={1}
+        onLongPress={onLongPress}
+        hitSlop={hitSlop}
+        {...(Platform.OS === 'android' ? { android_ripple: { borderless: false } } : {})}
         disabled={disabled || loading}
+        accessibilityRole="button"
+        accessibilityState={a11yState}
+        accessibilityLabel={accessibilityLabel ?? title}
+        accessibilityHint={accessibilityHint ?? (loading ? 'In progress' : undefined)}
+        style={styles.pressable}
       >
         <Animated.View
           style={[
             styles.button,
+            isIOS ? styles.iosBorderCurve : null,
             {
-              backgroundColor: backgroundColor,
-              borderRadius: getBorderRadius(),
-              transform: [{ translateY: buttonTranslateY }],
+              minHeight: minHeight ?? normalize(52),
+              paddingVertical: normalize(14),
+              paddingHorizontal: normalize(18),
+              borderRadius: brMain,
+              backgroundColor,
+              transform: [{ translateY: pressY }],
             },
           ]}
         >
-          <View style={styles.buttonContent}>
+          <View style={styles.content}>
             {loading ? (
               <>
-                <ActivityIndicator 
-                  size="small" 
-                  color={textColor} 
-                />
-                {loadingText && (
-                  <Text style={[styles.buttonText, { color: textColor }, textStyle]}>
-                    {loadingText}
-                  </Text>
-                )}
+                <ActivityIndicator size="small" color={spinnerColor} />
+                {loadingText ? (
+                  <Text style={[styles.textBase, { color: textColor }, textStyle]}>{loadingText}</Text>
+                ) : null}
               </>
             ) : (
               <>
-                {iconPosition === 'left' && renderIcon()}
-                <Text style={[styles.buttonText, { color: textColor }, textStyle]}>
+                {effectiveIconPosition === 'left' && renderIcon()}
+                {effectiveIconPosition === 'left' && <Spacer width={normalize(7)} />}
+                <Text
+                  style={[
+                    styles.textBase,
+                    { color: textColor, fontSize: normalize(18), fontFamily: FONTS.figtreeSemiBold },
+                    textStyle,
+                  ]}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                >
                   {title}
                 </Text>
-                {iconPosition === 'right' && renderIcon()}
+                {effectiveIconPosition === 'right' && <Spacer width={normalize(7)} />}
+                {effectiveIconPosition === 'right' && renderIcon()}
               </>
             )}
           </View>
         </Animated.View>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
-};
+});
 
-/**
- * Styles for AnimatedButton component
- */
+AnimatedButton.displayName = 'AnimatedButton';
+
 const styles = StyleSheet.create({
-  buttonContainer: {
-    width: '100%',
+  container: {
     position: 'relative',
-    marginBottom: normalize(12),
   },
-  buttonDarkLayer: {
+  shadowLayer: {
     position: 'absolute',
-    top: 6,
     left: 0,
     right: 0,
     height: '100%',
-    ...Platform.select({
-      ios: {
-        borderCurve: 'continuous',
-      },
-    }),
+    ...(isIOS ? { borderCurve: 'continuous' } : null),
   },
-  buttonTouchable: {
+  pressable: {
     width: '100%',
     position: 'relative',
     zIndex: 3,
   },
   button: {
-    ...Platform.select({
-      ios: {
-        borderCurve: 'continuous',
-      },
-    }),
     width: '100%',
-    padding: normalize(18),
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  buttonText: {
-    fontSize: normalize(18),
-    fontFamily: FONTS.figtreeSemiBold,
+  iosBorderCurve: {
+    borderCurve: 'continuous',
   },
-  buttonContent: {
+  content: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: normalize(7),
+    // Removed gap in favor of Spacer components for better cross-platform support
+  },
+  textBase: {
+    includeFontPadding: false,
+    textAlignVertical: 'center',
   },
 });
 
-export default AnimatedButton;
+export default React.memo(AnimatedButton);
